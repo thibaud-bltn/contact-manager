@@ -5,6 +5,8 @@ int main() {
     int choice {-1};
     std::vector<Contact> contacts;
 
+    contacts.push_back({"Jeton", "Metal", "0000000000", "jetonmetal@gmail.com"});
+
     printBanner();
 
     while (choice != 5) {

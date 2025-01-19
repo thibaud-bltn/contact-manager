@@ -60,79 +60,67 @@ void addContact(std::vector<Contact>& contacts) {
 
 void editContact(std::vector<Contact>& contacts) {
 
-    int choice {-1};
     int currentContact {-1};
+    std::string firstName, lastName, phoneNumber, email;
 
-    while (choice != 5) {
+    std::cout << std::endl;
+    std::cout << "=========================================" << std::endl;
+    std::cout << "             Edit a contact              " << std::endl;
+    std::cout << "=========================================" << std::endl;
 
-        std::cout << std::endl;
-        std::cout << "=========================================" << std::endl;
-        std::cout << "             Edit a contact              " << std::endl;
-        std::cout << "=========================================" << std::endl;
-
-        if (contacts.empty()) {
-            std::cout << std::endl << "No contacts in phonebook." << std::endl;
-            return;
-        }
-
-        if (currentContact == -1) {
-            while (currentContact < 0 or (currentContact > contacts.size() - 1)) {
-                std::cout << "Choose a contact (#ID) : ";
-                std::cin >> currentContact;
-                std::cout << std::endl;
-                --currentContact;
-            }
-        }
-
-        std::cout << "1. First name" << std::endl
-                  << "2. Last name" << std::endl
-                  << "3. Phone number" << std::endl
-                  << "4. Email" << std::endl
-                  << "5. Save contact" << std::endl;
-
-        std::cin >> choice;
-
-        switch (choice) {
-            case 1:
-                std::cout << "Current first name : " << contacts[currentContact].firstName << std::endl;
-                std::cout << "New first name: ";
-                std::cin >> contacts[currentContact].firstName;
-                break;
-
-            case 2:
-                std::cout << "Current last name : " << contacts[currentContact].lastName << std::endl;
-                std::cout << "New last name: ";
-                std::cin >> contacts[currentContact].lastName;
-                break;
-
-            case 3:
-                std::cout << "Current phone number : " << contacts[currentContact].phoneNumber << std::endl;
-                do {
-                    std::cout << std::endl << "New phone number: ";
-                    std::cin >> contacts[currentContact].phoneNumber;
-
-                    if (!isValidNumber(contacts[currentContact].phoneNumber)) {
-                        std::cout << std::endl << "Please enter valid number.";
-                    }
-                } while (!isValidNumber(contacts[currentContact].phoneNumber));
-                break;
-
-            case 4:
-                std::cout << "Current email : " << contacts[currentContact].email << std::endl;
-                do {
-                    std::cout << std::endl << "New email: ";
-                    std::cin >> contacts[currentContact].email;
-
-                    if (!isValidEmail(contacts[currentContact].email)) {
-                        std::cout << std::endl << "Please enter valid email.";
-                    }
-                } while (!isValidEmail(contacts[currentContact].email));
-                break;
-
-            default:
-                break;
-        }
+    if (contacts.empty()) {
+        std::cout << std::endl << "No contacts in phonebook." << std::endl;
+        return;
     }
+
+    while (currentContact < 0 or (currentContact > contacts.size() - 1)) {
+        std::cout << "Choose a contact (#ID) : ";
+        std::cin >> currentContact;
+        std::cout << std::endl;
+        --currentContact;
+    }
+
+    std::cout << "-----------------------------------------" << std::endl
+              << "Selected contact:" << std::endl
+              << "First name: " << contacts[currentContact].firstName << std::endl
+              << "Last name: " << contacts[currentContact].lastName << std::endl
+              << "Phone number: " << contacts[currentContact].phoneNumber << std::endl
+              << "Email: " << contacts[currentContact].email << std::endl
+              << "-----------------------------------------" << std::endl;
+
+    std::cin.ignore();
+
+    std::cout << std::endl << "Enter new first name (leave empty to keep : " << contacts[currentContact].firstName << "): ";
+    std::getline(std::cin, firstName);
+    if (!firstName.empty()) contacts[currentContact].firstName = firstName;
+
+    std::cout << std::endl << "Enter new last name (leave empty to keep : " << contacts[currentContact].lastName << "): ";
+    std::getline(std::cin, lastName);
+    if (!lastName.empty()) contacts[currentContact].lastName = lastName;
+
+    do {
+        std::cout << std::endl << "Enter new phone number (leave empty to keep : " << contacts[currentContact].phoneNumber << "): ";
+        std::getline(std::cin, phoneNumber);
+
+        if (phoneNumber.empty()) break;
+
+        if (!isValidNumber(phoneNumber)) {
+            std::cout << std::endl << "Please enter valid number.";
+        }
+    } while (!isValidNumber(phoneNumber));
+    if (!phoneNumber.empty()) contacts[currentContact].phoneNumber = phoneNumber;
+
+    do {
+        std::cout << std::endl << "Enter new email (leave empty to keep : " << contacts[currentContact].email << "): ";
+        std::getline(std::cin, email);
+
+        if (email.empty()) break;
+
+        if (!isValidEmail(email)) {
+            std::cout << std::endl << "Please enter valid email.";
+        }
+    } while (!isValidEmail(email));
+    if (!email.empty()) contacts[currentContact].email = email;
 
     std::cout << std::endl << "Contact successfully edited" << std::endl;
     std::cout << "-----------------------------------------" << std::endl << std::endl;
@@ -156,6 +144,7 @@ void showContact(const std::vector<Contact>& contacts) {
               << std::setw(20) << "Name"
               << std::setw(15) << "Phone number"
               << std::setw(30) << "Email" << std::endl;
+    std::cout << "--------------------------------------------------------" << std::endl;
 
     for (const Contact& contact : contacts) {
         std::string fullName = contact.firstName + " " + contact.lastName;
@@ -164,6 +153,7 @@ void showContact(const std::vector<Contact>& contacts) {
                   << std::setw(15) << contact.phoneNumber
                   << std::setw(30) << contact.email << std::endl;
     }
+    std::cout << "--------------------------------------------------------" << std::endl;
 }
 
 void printBanner() {
