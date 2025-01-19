@@ -26,6 +26,7 @@ int main() {
                 break;
 
             case 4:
+                showContact(contacts);
                 break;
 
             default:

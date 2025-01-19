@@ -63,17 +63,17 @@ void editContact(std::vector<Contact>& contacts) {
     int choice {-1};
     int currentContact {-1};
 
-    if (contacts.empty()) {
-        std::cout << std::endl << "No contacts in phonebook." << std::endl;
-        return;
-    }
-
     while (choice != 5) {
 
         std::cout << std::endl;
         std::cout << "=========================================" << std::endl;
         std::cout << "             Edit a contact              " << std::endl;
         std::cout << "=========================================" << std::endl;
+
+        if (contacts.empty()) {
+            std::cout << std::endl << "No contacts in phonebook." << std::endl;
+            return;
+        }
 
         if (currentContact == -1) {
             while (currentContact < 0 or (currentContact > contacts.size() - 1)) {
@@ -136,6 +136,34 @@ void editContact(std::vector<Contact>& contacts) {
 
     std::cout << std::endl << "Contact successfully edited" << std::endl;
     std::cout << "-----------------------------------------" << std::endl << std::endl;
+}
+
+void showContact(const std::vector<Contact>& contacts) {
+
+    std::cout << std::endl;
+    std::cout << "=========================================" << std::endl;
+    std::cout << "            List of contacts             " << std::endl;
+    std::cout << "=========================================" << std::endl;
+
+    if (contacts.empty()) {
+        std::cout << std::endl << "No contacts in phonebook." << std::endl;
+        return;
+    }
+
+    int id {0};
+
+    std::cout << std::left << std::setw(4)  << "ID"
+              << std::setw(20) << "Name"
+              << std::setw(15) << "Phone number"
+              << std::setw(30) << "Email" << std::endl;
+
+    for (const Contact& contact : contacts) {
+        std::string fullName = contact.firstName + " " + contact.lastName;
+        std::cout << std::left << std::setw(4)  << ++id
+                  << std::setw(20) << fullName
+                  << std::setw(15) << contact.phoneNumber
+                  << std::setw(30) << contact.email << std::endl;
+    }
 }
 
 void printBanner() {

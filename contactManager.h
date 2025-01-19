@@ -2,6 +2,7 @@
 #define CONTACTMANAGER_CONTACTMANAGER_H
 
 #include <iostream>
+#include <iomanip>
 #include <string>
 #include <vector>
 
@@ -19,6 +20,8 @@ bool isValidEmail(const std::string& email);
 void addContact(std::vector<Contact>& contacts);
 
 void editContact(std::vector<Contact>& contacts);
+
+void showContact(const std::vector<Contact>& contacts);
 
 void printBanner();
 
