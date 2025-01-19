@@ -15,6 +15,7 @@ int main() {
 
         switch (choice) {
             case 1:
+                addContact(contacts);
                 break;
             case 2:
                 break;

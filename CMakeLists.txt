@@ -4,4 +4,5 @@ project(contactManager)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(contactManager main.cpp
-        contactManager.h)
+        contactManager.h
+        contactManager.cpp)
