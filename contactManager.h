@@ -18,6 +18,8 @@ bool isValidEmail(const std::string& email);
 
 void addContact(std::vector<Contact>& contacts);
 
+void editContact(std::vector<Contact>& contacts);
+
 void printBanner();
 
 void printMenu();

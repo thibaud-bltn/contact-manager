@@ -17,14 +17,17 @@ int main() {
             case 1:
                 addContact(contacts);
                 break;
+
             case 2:
+                editContact(contacts);
                 break;
+
             case 3:
                 break;
+
             case 4:
                 break;
-            case 5:
-                break;
+
             default:
                 break;
         }
